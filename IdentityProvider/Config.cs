@@ -18,15 +18,15 @@ namespace IdentityProvider
                     ClientId = "oauthClient",
                     ClientName = "Test Client",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = new List<Secret> {new Secret("SuperSecretPassword".Sha256())}, 
+                    ClientSecrets = new List<Secret> {new Secret("SuperSecretPassword".Sha256())},
                     AllowedScopes = new List<string> {"api1.read", "api1.write"}
                 },
                 new Client
                 {
                     ClientId = "oidcClient",
                     ClientName = "Test Client APP",
-                    ClientSecrets = new List<Secret> {new Secret("SuperSecretPassword".Sha256())}, 
-                    
+                    ClientSecrets = new List<Secret> {new Secret("SuperSecretPassword".Sha256())},
+
                     AllowedGrantTypes = GrantTypes.Code,
                     RedirectUris = new List<string> {"https://localhost:5002/signin-oidc"},
                     AllowedScopes = new List<string>
@@ -116,12 +116,13 @@ namespace IdentityProvider
                 new TestUser
                 {
                     SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABE",
-                    Username = "scott",
+                    Username = "DDiscua",
                     Password = "password",
                     Claims = new List<Claim>
                     {
-                        new Claim(JwtClaimTypes.Email, "scott@scottbrady91.com"),
-                        new Claim(JwtClaimTypes.Role, "admin")
+                        new Claim(JwtClaimTypes.Email, "ddiscua@test.com"),
+                        new Claim(JwtClaimTypes.Role, "admin"),
+                        new Claim("ikatier", "photon")
                     }
                 }
             };

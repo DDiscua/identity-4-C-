@@ -7,6 +7,6 @@ namespace API.Models
 {
     public class ListUser
     {
-        public List<string> Users { get; set };
+        public List<string> Users { get; set; }
     }
 }
