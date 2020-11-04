@@ -121,20 +121,31 @@ namespace API.Controllers
 
         [HttpPut("{id}")]
         [Route("UpdateUserById")]
-        public async Task<PayloadResponse> UpdateUser([FromBody] UserModel User, string id)
+        public async Task<PayloadResponse> UpdateUser([FromBody] UserModelUpdate User, string id)
         {
             PayloadResponse Response = new PayloadResponse();
-            var UserToUpdate = await _userManager.FindByIdAsync(id);
+            var UserToUpdate = await _userManager.FindByNameAsync(User.UserName);
             if (UserToUpdate != null)
             {
-                UserToUpdate.PhoneNumber = User.PhoneNumber;
-                UserToUpdate.Email = User.Email;
+
+                var claims = await _userManager.GetClaimsAsync(UserToUpdate);
+                await _userManager.RemoveClaimsAsync(UserToUpdate, claims);
+                //Add Claims
+                if (User.Claims != null)
+                {
+                    foreach (CustomClaim claim in User.Claims)
+                    {
+
+                        await _userManager.AddClaimAsync(UserToUpdate, new Claim(claim.Type, claim.Value));
+                    }
+
+                }
 
                 var Result = await _userManager.UpdateAsync(UserToUpdate);
-                if (!Result.Succeeded)
+                if (Result.Succeeded)
                 {
-                    Response.Code = ERROR_CODE;
-                    Response.Message = "Unexpected error trying to update the user";
+                    Response.Code = SUCCESS_CODE;
+                    Response.Message = "User claims updated succesfully";
                     Response.Payload = null;
                 }
             }

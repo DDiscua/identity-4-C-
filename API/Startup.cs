@@ -12,7 +12,7 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            const string connectionString = "Server=DESKTOP-66COA7N\\SQLEXPRESS,10011;Database=IkaTest;Trusted_Connection=True;";
+            const string connectionString = "Server=db;Database=master;User=sa;Password=Pass1234!;";
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin()

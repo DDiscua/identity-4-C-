@@ -78,6 +78,36 @@ export const Register = ({ username, password, confirmPassword, email, phoneNumb
     };
 };
 
+export const UpdateUser = (object) => {
+    return dispatch => {
+        return new Promise((resolve, reject) => {
+            try {
+                dispatch({ type: FETCH_START });
+                axios
+                    .put("User/UpdateUserById", object)
+                    .then(({ data }) => {
+                        console.log(data);
+                        if (data && data.code === 200) {
+                            dispatch({ type: FETCH_SUCCESS });
+                            resolve(data);
+                        } else {
+                            dispatch({ type: FETCH_ERROR, payload: data.error });
+                            reject(data);
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        const { response } = error;
+                        dispatch({ type: FETCH_ERROR, payload: error });
+                        reject(response);
+                    });
+            } catch (err) {
+                reject(err);
+            }
+        });
+    };
+};
+
 export const ListUsers = () => {
     return dispatch => {
         return new Promise((resolve, reject) => {

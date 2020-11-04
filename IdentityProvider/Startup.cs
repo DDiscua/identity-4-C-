@@ -18,7 +18,7 @@ namespace IdentityProvider
             services.AddControllersWithViews();
 
             // const string connectionString = @"Server=db;Database=master;User=sa;Password=Pass1234!;";
-            const string connectionString = "Server=DESKTOP-66COA7N\\SQLEXPRESS,10011;Database=IkaTest;Trusted_Connection=True;";
+            const string connectionString = "Server=db;Database=master;User=sa;Password=Pass1234!;";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             services.AddDbContext<ApplicationDbContext>(builder =>
