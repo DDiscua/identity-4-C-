@@ -1,0 +1,9 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+COPY . /app
+WORKDIR /app
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="${PATH}:/root/.dotnet/tools"
+RUN ["dotnet", "restore"]
+RUN ["dotnet", "build"]
+EXPOSE 5001/tcp
+CMD ["dotnet", "run", "--urls", "https://*:5001"]

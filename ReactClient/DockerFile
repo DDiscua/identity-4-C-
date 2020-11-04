@@ -1,0 +1,9 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+COPY . /app
+WORKDIR /app
+RUN curl --silent --location https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install --yes nodejs
+RUN ["dotnet", "restore"]
+RUN ["dotnet", "build"]
+EXPOSE 44395/tcp
+CMD ["dotnet", "run", "--urls", "https://*:44395"]

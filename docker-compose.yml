@@ -1,0 +1,37 @@
+version: "3"
+services:
+    db:
+        image: "mcr.microsoft.com/mssql/server"
+        environment:
+            SA_PASSWORD: "Pass1234!"
+            ACCEPT_EULA: "Y"
+    identity_provider:
+        build:
+            context: ./IdentityProvider
+            dockerfile: DockerFile
+        ports:
+            - "5000:5000"
+        depends_on:
+            - db
+        environment:
+            - ASPNETCORE_URLS=https://+;http://+;
+    web_api:
+        build:
+            context: ./API
+            dockerfile: DockerFile
+        ports:
+            - "5001:5001"
+        depends_on:
+            - identity_provider
+        environment:
+            - ASPNETCORE_URLS=https://+;http://+;
+    react_client:
+        build:
+            context: ./ReactClient
+            dockerfile: DockerFile
+        ports:
+            - "44395:44395"
+        depends_on:
+            - identity_provider
+        environment:
+            - ASPNETCORE_URLS=https://+;http://+;
