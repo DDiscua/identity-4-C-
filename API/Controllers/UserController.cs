@@ -162,10 +162,10 @@ namespace API.Controllers
 
         [HttpPut]
         [Route("DeleteUserById")]
-        public async Task<PayloadResponse> DeleteUserById(string id)
+        public async Task<PayloadResponse> DeleteUserById([FromBody] UserModelUpdate User, string id)
         {
             PayloadResponse Response = new PayloadResponse();
-            var UserToUpdate = await _userManager.FindByIdAsync(id);
+            var UserToUpdate = await _userManager.FindByNameAsync(User.UserName);
             if (UserToUpdate != null)
             {
                 var Result = await _userManager.DeleteAsync(UserToUpdate);
@@ -173,6 +173,12 @@ namespace API.Controllers
                 {
                     Response.Code = ERROR_CODE;
                     Response.Message = "Unexpected error trying to delete the user";
+                    Response.Payload = null;
+                }
+                else
+                {
+                    Response.Code = SUCCESS_CODE;
+                    Response.Message = "User Delted Succesfully";
                     Response.Payload = null;
                 }
             }
@@ -187,19 +193,6 @@ namespace API.Controllers
             return Response;
         }
 
-        /*   [HttpPost]
-     public IEnumerable<WeatherForecast> CreateUser(int Id)
-     {
-         var rng = new Random();
-         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-         {
-             Date = DateTime.Now.AddDays(index),
-             TemperatureC = rng.Next(-20, 55),
-             Summary = Summaries[rng.Next(Summaries.Length)]
-         })
-         .ToArray();
-     }
-   */
 
         [HttpPost]
         [Route("Login")]
@@ -257,7 +250,7 @@ namespace API.Controllers
             }
 
 
-            return Response;
+            
         }
 
         [HttpPost]
@@ -311,17 +304,6 @@ namespace API.Controllers
             return Response;
         }
 
-        /*   [HttpPost]
-           public IEnumerable<WeatherForecast> Logout(int Id)
-           {
-               var rng = new Random();
-               return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-               {
-                   Date = DateTime.Now.AddDays(index),
-                   TemperatureC = rng.Next(-20, 55),
-                   Summary = Summaries[rng.Next(Summaries.Length)]
-               })
-               .ToArray();
-           }*/
+ 
     }
 }

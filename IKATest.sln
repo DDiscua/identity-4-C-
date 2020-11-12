@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityProvider", "Identit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{E7164672-4D5C-4BDD-948A-C90D6ABC97CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactClient", "ReactClient\ReactClient.csproj", "{8B4F1A77-57D5-470D-B4C1-242F83B39559}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactClient", "ReactClient\ReactClient.csproj", "{8B4F1A77-57D5-470D-B4C1-242F83B39559}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest", "IntegrationTest\IntegrationTest.csproj", "{BA9955F7-F4BE-4FA8-B9B4-1D441A5515A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{8B4F1A77-57D5-470D-B4C1-242F83B39559}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B4F1A77-57D5-470D-B4C1-242F83B39559}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B4F1A77-57D5-470D-B4C1-242F83B39559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA9955F7-F4BE-4FA8-B9B4-1D441A5515A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA9955F7-F4BE-4FA8-B9B4-1D441A5515A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA9955F7-F4BE-4FA8-B9B4-1D441A5515A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA9955F7-F4BE-4FA8-B9B4-1D441A5515A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,12 +17,12 @@ namespace IdentityProvider
         {
             services.AddControllersWithViews();
 
-            // const string connectionString = @"Server=db;Database=master;User=sa;Password=Pass1234!;";
-            const string connectionString = "Server=db;Database=master;User=sa;Password=Pass1234!;";
+            string str_local = "Server=DESKTOP-66COA7N\\SQLEXPRESS,10011;Database=IkaTest;Trusted_Connection=True;";
+            string str_docket = "Server = db; Database = master; User = sa; Password = Pass1234!;";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             services.AddDbContext<ApplicationDbContext>(builder =>
-                builder.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
+                builder.UseSqlServer(str_local, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -39,10 +39,10 @@ namespace IdentityProvider
             // EF client, scope, and persisted grant stores
             ids.AddOperationalStore(options =>
                     options.ConfigureDbContext = builder =>
-                        builder.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)))
+                        builder.UseSqlServer(str_local, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)))
                 .AddConfigurationStore(options =>
                     options.ConfigureDbContext = builder =>
-                        builder.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
+                        builder.UseSqlServer(str_local, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
             
             // ASP.NET Identity integration
             ids.AddAspNetIdentity<IdentityUser>();
