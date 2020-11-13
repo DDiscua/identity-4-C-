@@ -19,14 +19,14 @@ class App extends Component {
   componentDidMount() {
     if (this.props.token) {
       axios.defaults.headers.common["Authorization"] =
-        "Bearer " + this.props.token;
+        "Bearer " + this.props.token.access_token;
     }
   }
 
   componentDidUpdate() {
     if (this.props.token) {
       axios.defaults.headers.common["Authorization"] =
-        "Bearer " + this.props.token;
+        "Bearer " + this.props.token.access_token;
     }
   }
 
@@ -48,7 +48,7 @@ class App extends Component {
             <Route exact path="/register" component={SingUp} />
             <RestrictedRoute
               path={`${location && location.pathname}`}
-              token={token}
+              token={token.access_token}
               component={MainApp}
             />
           </Switch>

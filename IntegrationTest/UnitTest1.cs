@@ -15,7 +15,7 @@ namespace IntegrationTest
 
         private UserModel LastUserCreated;
 
-        [Fact, Priority(1)]
+        [Fact(DisplayName = "Testing Register User"), Priority(1)]
         public async Task RegisterUser()
         {
             APIWrapper ApiCaller = new APIWrapper("RegisterUser", "");
@@ -30,7 +30,7 @@ namespace IntegrationTest
 
         }
 
-        [Fact, Priority(2)]
+        [Fact(DisplayName = "Testing Update User"), Priority(2)]
         public async Task UpdateUser()
         {
             APIWrapper ApiCaller = new APIWrapper("UpdateUserById", "");
@@ -48,7 +48,7 @@ namespace IntegrationTest
         }
 
 
-        [Fact, Priority(3)]
+        [Fact(DisplayName = "Testing Delete User"), Priority(3)]
         public async Task DeleteUserById()
         {
             APIWrapper ApiCaller = new APIWrapper("DeleteUserById", "");
@@ -68,7 +68,7 @@ namespace IntegrationTest
         }
 
 
-        [Fact, Priority(4)]
+        [Fact(DisplayName = "Testing List Users"), Priority(4)]
         public async Task ListUsers()
         {
             APIWrapper ApiCaller = new APIWrapper("ListUsers", "");

@@ -28,22 +28,25 @@ namespace IdentityProvider
 
 
             IIdentityServerBuilder ids = services.AddIdentityServer()
+                .AddJwtBearerClientAuthentication()
                 .AddDeveloperSigningCredential();
 
+
             // in-memory client and scope stores
-            /*ids.AddInMemoryClients(Clients.Get())
+            ids.AddInMemoryClients(Clients.Get())
                 .AddInMemoryIdentityResources(Resources.GetIdentityResources())
                 .AddInMemoryApiResources(Resources.GetApiResources())
-                .AddInMemoryApiScopes(Resources.GetApiScopes());*/
+                .AddInMemoryApiScopes(Resources.GetApiScopes());
 
-            // EF client, scope, and persisted grant stores
-            ids.AddOperationalStore(options =>
+
+             // EF client, scope, and persisted grant stores
+             ids.AddOperationalStore(options =>
                     options.ConfigureDbContext = builder =>
                         builder.UseSqlServer(str_docket, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)))
                 .AddConfigurationStore(options =>
                     options.ConfigureDbContext = builder =>
                         builder.UseSqlServer(str_docket, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
-            
+
             // ASP.NET Identity integration
             ids.AddAspNetIdentity<IdentityUser>();
         }
@@ -58,6 +61,7 @@ namespace IdentityProvider
             app.UseStaticFiles();
             app.UseRouting();
 
+      
             app.UseIdentityServer();
             app.UseAuthorization();
 

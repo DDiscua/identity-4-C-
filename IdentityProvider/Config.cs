@@ -45,9 +45,15 @@ namespace IdentityProvider
                 {
                     ClientId = "reactTest",
                     ClientName = "Test Client APP",
-                    ClientSecrets = new List<Secret> {new Secret("SuperSecretPassword".Sha256())},
-
+                    ClientSecrets = new List<Secret> {
+                        new Secret{
+                                Type = IdentityServerConstants.SecretTypes.JsonWebKey,
+                                Value =  "SuperSecretPassword".Sha256()
+                            }
+                    },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    IncludeJwtId=true,
+                    AlwaysIncludeUserClaimsInIdToken=true,
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
@@ -60,7 +66,7 @@ namespace IdentityProvider
                     RequirePkce = true,
                     AllowPlainTextPkce = false
                 }
-            };
+    };
         }
     }
 

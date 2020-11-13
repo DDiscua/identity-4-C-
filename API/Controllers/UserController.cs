@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using API.Authorization;
 using API.BEController;
 using API.DBContext;
 using API.Models;
@@ -20,6 +21,7 @@ namespace API.Controllers
 
     [ApiController]
     [Route("[controller]")]
+    [MiddlewareFilter(typeof(AuthenticationMiddleware))]
     public class UserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -86,6 +88,7 @@ namespace API.Controllers
             return Response;
         }
 
+
         [Route("GetUserById")]
         [HttpGet("{id}")]
         public async Task<PayloadResponse> GetUserById(string id)
@@ -118,6 +121,7 @@ namespace API.Controllers
             }
             return Response;
         }
+
 
         [HttpPut("{id}")]
         [Route("UpdateUserById")]
@@ -160,6 +164,7 @@ namespace API.Controllers
             return Response;
         }
 
+
         [HttpPut]
         [Route("DeleteUserById")]
         public async Task<PayloadResponse> DeleteUserById([FromBody] UserModelUpdate User, string id)
@@ -196,6 +201,7 @@ namespace API.Controllers
 
         [HttpPost]
         [Route("Login")]
+        [AllowAnonymous]
         public async Task<PayloadResponse> Login([FromBody] UserLoginRequest UserRequest)
         {
             PayloadResponse Response = new PayloadResponse();
@@ -212,7 +218,7 @@ namespace API.Controllers
             {
                 var IdentityCall = await _customUserManager.Login(UserRequest);
 
-                if (IdentityCall !=null && IdentityCall.access_token != null)
+                if (IdentityCall != null && IdentityCall.access_token != null)
                 {
                     var User = await _userManager.FindByNameAsync(UserRequest.UserName);
                     if (User != null)
@@ -250,11 +256,12 @@ namespace API.Controllers
             }
 
 
-            
+
         }
 
         [HttpPost]
         [Route("RegisterUser")]
+        [AllowAnonymous]
         public async Task<PayloadResponse> RegisterUser([FromBody] UserModel User)
         {
             PayloadResponse Response = new PayloadResponse();
@@ -304,6 +311,6 @@ namespace API.Controllers
             return Response;
         }
 
- 
+
     }
 }

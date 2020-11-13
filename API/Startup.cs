@@ -1,9 +1,11 @@
 using API.DBContext;
 using API.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System.Net.Http;
 
 namespace API
@@ -28,7 +30,8 @@ namespace API
                 .AddIdentityServerAuthentication("Bearer", options =>
                 {
                     options.ApiName = "api1";
-                    options.Authority = "https://localhost:5000";
+                    options.Authority = "https://identity_provider:5000";
+                    options.ApiSecret = "SuperSecretPassword";
                 });
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -37,15 +40,7 @@ namespace API
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
 
-         /*   services.AddHttpClient("HttpClientWithSSLUntrusted").ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-            {
-                ClientCertificateOptions = ClientCertificateOption.Manual,
-                ServerCertificateCustomValidationCallback =
-            (httpRequestMessage, cert, cetChain, policyErrors) =>
-            {
-                return true;
-            }
-            });*/
+
 
             services.AddMvc();
         }
