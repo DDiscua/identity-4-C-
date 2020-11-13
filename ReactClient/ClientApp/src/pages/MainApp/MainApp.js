@@ -22,6 +22,7 @@ export class MainApp extends Component {
     }
 
     logout = () => {
+        console.log('TO Logout');
         this.props.userSignOut();
     }
 

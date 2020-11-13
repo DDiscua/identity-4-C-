@@ -212,7 +212,7 @@ namespace API.Controllers
             {
                 var IdentityCall = await _customUserManager.Login(UserRequest);
 
-                if (IdentityCall.access_token != null)
+                if (IdentityCall !=null && IdentityCall.access_token != null)
                 {
                     var User = await _userManager.FindByNameAsync(UserRequest.UserName);
                     if (User != null)

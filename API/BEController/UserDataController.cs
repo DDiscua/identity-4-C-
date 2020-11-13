@@ -42,8 +42,7 @@ namespace API.BEController
         {
             try
             {
-                const string _url = "https://localhost:5000/connect/token";
-                var apiClient = new HttpClient();
+                const string _url = "https://identity_provider:5000/connect/token";
                 var values = new Dictionary<string, string>
                 {
                     {"grant_type", "password"},
@@ -53,26 +52,40 @@ namespace API.BEController
                     {"username",UserRequest.UserName},
                     {"password",UserRequest.Password}
                 };
-
-                using (var httpClient = new HttpClient())
+                using (var handler = new HttpClientHandler())
                 {
-                    using (var content = new FormUrlEncodedContent(values))
+                    
+            
+                    using (var httpClient = new HttpClient(handler))
                     {
-                        content.Headers.Clear();
-                        content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+                     /*   System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                        delegate (object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                                                System.Security.Cryptography.X509Certificates.X509Chain chain,
+                                                System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                        {
+                            return true;
+                        };*/
+                        using (var content = new FormUrlEncodedContent(values))
+                        {
+                            content.Headers.Clear();
+                            content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
-                        HttpResponseMessage response = await httpClient.PostAsync(_url, content);
+                            HttpResponseMessage response = await httpClient.PostAsync(_url, content);
 
-                        var _token = await response.Content.ReadAsStringAsync();
-                        var _parseToken = JsonConvert.DeserializeObject<IdentityResponse>(_token);
-                        return _parseToken;
+                            var _token = await response.Content.ReadAsStringAsync();
+                            var _parseToken = JsonConvert.DeserializeObject<IdentityResponse>(_token);
+                            return _parseToken;
+                        }
                     }
                 }
+
 
             }
             catch (Exception E)
             {
-                return null;
+                throw E;
+
             }
 
         }

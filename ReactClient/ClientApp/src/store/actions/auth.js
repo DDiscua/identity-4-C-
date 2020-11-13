@@ -58,7 +58,6 @@ export const Register = ({ username, password, confirmPassword, email, phoneNumb
                         console.log(data);
                         if (data && data.code === 200) {
                             dispatch({ type: FETCH_SUCCESS });
-                            dispatch(push("/dashboard/main"));
                             resolve(data);
                         } else {
                             dispatch({ type: FETCH_ERROR, payload: data.error });
@@ -167,7 +166,7 @@ export const userSignOut = () => {
                     outSession();
                     dispatch({ type: FETCH_SUCCESS });
                     dispatch({ type: SIGNOUT_USER_SUCCESS });
-                    dispatch(push("/"));
+                 //   dispatch(push("/"));
                 });
                 resolve();
             } catch (err) {
