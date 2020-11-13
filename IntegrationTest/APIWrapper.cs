@@ -28,8 +28,9 @@ namespace IntegrationTest
             _contentType = "application/json";
             _config = new HttpClientHandler()
             {
-                MaxConnectionsPerServer = 1000
-            };
+                MaxConnectionsPerServer = 1000,
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+        };
 
         }
 
