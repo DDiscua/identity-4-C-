@@ -48,7 +48,7 @@ class App extends Component {
             <Route exact path="/register" component={SingUp} />
             <RestrictedRoute
               path={`${location && location.pathname}`}
-              token={token.access_token}
+              token={token && token.access_token}
               component={MainApp}
             />
           </Switch>
